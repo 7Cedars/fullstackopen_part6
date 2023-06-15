@@ -1,11 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 import { vote, createAnecdote } from './reducers/anecdoteReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const anecdotes = useSelector(state => state)
-
-  
 
   const addAnecdote = (event) => {
     // console.log(event)
