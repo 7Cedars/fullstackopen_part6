@@ -35,19 +35,23 @@ const reducer = (state = initialState, action) => {
       )
     }
 
-    // case 'NEW_ANECDOTE': {
-    //   const stateToChange = {} 
-    //   const payloadWhitelist = ['good', 'ok', 'bad']
-    //   if (payloadWhitelist.find(item => item === action.payload)) { 
-    //     stateToChange[action.payload] = state[action.payload] - 1   
-    //   }
-    //   const changedState = {...state, ...stateToChange}
-    //   return changedState 
-    // }
-    // case 'RESET': {
-    //   return state
-    // }
+    case 'NEW_ANECDOTE': {
+      console.log("action.data:", action.data)
+      return [...state, action.payload]
+    }
+    
   default: return state
+  }
+}
+
+export const createAnecdote = (content) => {
+  return {
+    type: 'NEW_ANECDOTE',
+    payload: {
+      content,
+      id: getId(),
+      votes: 0,
+    }
   }
 }
 
