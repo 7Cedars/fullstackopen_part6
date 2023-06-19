@@ -6,7 +6,7 @@ const Notification = () => {
       if (state.notification) { 
         const notifications = state.notification
         const selectedNotification = notifications.slice(-1)
-        console.log("notification to RETURN: ", selectedNotification)
+       // console.log("notification to RETURN: ", selectedNotification)
         return selectedNotification[0].message
       }
 

@@ -1,20 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { vote } from '../reducers/anecdoteReducer'
+import { voteAnecdote } from '../reducers/anecdoteReducer'
 import { setNotification, removeNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = (props) => {
   const dispatch = useDispatch()
 
-  const voteFor = (id, content) => {
-    dispatch(vote(id))
-    dispatch(setNotification({message: `you voted for: ${content}`, messageId: id}),
-    setTimeout(() => { dispatch(removeNotification(id))}, 5000) 
+  const voteFor = (anecdote) => {
+    const updatedAnec = {...anecdote, votes: anecdote.votes + 1} 
+    dispatch(voteAnecdote(updatedAnec))
+    dispatch(setNotification({message: `you voted for: ${anecdote.content}`, messageId: anecdote.id}),
+    setTimeout(() => { dispatch(removeNotification(anecdote.id))}, 5000) 
     )
   } 
 
   const anecdotes = useSelector(state => {
     if ( state.filter === 'ALL' ) {
-      console.log('state.anecdotes: ', state.anecdotes)
+      // console.log('state.anecdotes: ', state.anecdotes)
       return state.anecdotes
     } else {
       const filteredAnecdotes = state.anecdotes.filter ( 
@@ -34,7 +35,7 @@ const AnecdoteList = (props) => {
             has {anecdote.votes}
             <button
               key = {anecdote.id}
-              onClick={() => voteFor(anecdote.id, anecdote.content)}>vote</button>
+              onClick={() => voteFor(anecdote)}>vote</button>
           </div>
         </div>
       )}
