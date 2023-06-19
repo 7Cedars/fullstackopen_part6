@@ -6,17 +6,17 @@ const anecdotesAtStart = {
   notifications: []
 }
 
-const getId = () => (100000 * Math.random()).toFixed(0)
+//  const getId = () => (100000 * Math.random()).toFixed(0)
 
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0
-  }
-}
+// const asObject = (anecdote) => {
+//   return {
+//     content: anecdote,
+//     id: getId(),
+//     votes: 0
+//   }
+// }
 
-const initialState = anecdotesAtStart.anecdotes.map(asObject)
+// const initialState = anecdotesAtStart.anecdotes.map(asObject)
 
 const compareVotes = (a, b) => {
   return b.votes - a.votes
@@ -24,15 +24,11 @@ const compareVotes = (a, b) => {
 
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
-  initialState, 
+  initialState: anecdotesAtStart.anecdotes, 
   reducers: {
-    newAnecdote(state, action) {
+    createAnecdote(state, action) {
       const content = action.payload
-      state.push({
-        content, 
-        id: getId(),
-        votes: 0,
-      })
+      state.push(content)
     }, 
     vote(state, action) {
       const id = action.payload
@@ -55,7 +51,7 @@ const anecdoteSlice = createSlice({
   }
 })
 
-export const { newAnecdote, vote, appendAnecdote } = anecdoteSlice.actions
+export const { createAnecdote, vote, appendAnecdote } = anecdoteSlice.actions
 export default anecdoteSlice.reducer
 
 // (state = initialState, action) => {
