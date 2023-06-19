@@ -11,6 +11,7 @@ const AnecdoteList = (props) => {
 
   const anecdotes = useSelector(state => {
     if ( state.filter === 'ALL' ) {
+      console.log('state.anecdotes: ', state.anecdotes)
       return state.anecdotes
     } else {
       const filteredAnecdotes = state.anecdotes.filter ( 
