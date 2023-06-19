@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filterReducer from './filterReducer'
 import notificationReducer from './notificationReducer'
-import anecdoteService from '../services/anecdotes'
-import anecdoteReducer, { appendAnecdote } from './anecdoteReducer'
+import anecdoteReducer from './anecdoteReducer'
 
 const store = configureStore({
   reducer: {
@@ -11,12 +10,5 @@ const store = configureStore({
     notification: notificationReducer
   }
 })
-
-anecdoteService.getAll().then(anecdotes =>
-  anecdotes.forEach(anecdote => {
-    store.dispatch(appendAnecdote(anecdote))
-  })
-)
-
 
 export default store

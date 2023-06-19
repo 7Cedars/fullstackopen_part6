@@ -1,22 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import anecdoteService from '../services/anecdotes'
 
 const anecdotesAtStart = {
   anecdotes: [], 
   filter: 'ALL', 
   notifications: []
 }
-
-//  const getId = () => (100000 * Math.random()).toFixed(0)
-
-// const asObject = (anecdote) => {
-//   return {
-//     content: anecdote,
-//     id: getId(),
-//     votes: 0
-//   }
-// }
-
-// const initialState = anecdotesAtStart.anecdotes.map(asObject)
 
 const compareVotes = (a, b) => {
   return b.votes - a.votes
@@ -39,64 +28,24 @@ const anecdoteSlice = createSlice({
       const changedAnecdotes = state.map(anec =>
         anec.id !== id ? anec : changedAnec 
       )
-
-      // const anecdote = state.find(anec => anec.id === action.payload.id)
-      // const notification = `you voted for ${anecdote}` 
-
       return changedAnecdotes.sort(compareVotes)
     }, 
     appendAnecdote(state, action) {
       state.push(action.payload)
+    }, 
+    setAnecdotes(state, action) {
+      return action.payload
     }
   }
 })
 
-export const { createAnecdote, vote, appendAnecdote } = anecdoteSlice.actions
+export const { createAnecdote, vote, appendAnecdote, setAnecdotes } = anecdoteSlice.actions
+
+export const initializeAnecdotes= () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch(setAnecdotes(anecdotes))
+  }
+}
+
 export default anecdoteSlice.reducer
-
-// (state = initialState, action) => {
-//   console.log('state now: ', state)
-//   console.log('action', action)
-
-//   switch (action.type) {
-//     case 'VOTE': {
-//       const id = action.payload.id
-//       const anecToChange = state.find(anec => anec.id === id)
-//       const changedAnec = {
-//         ...anecToChange, votes: anecToChange.votes + 1
-//       }
-//       const changedAnecdotes = state.map(anec =>
-//         anec.id !== id ? anec : changedAnec 
-//       )
-
-//       return changedAnecdotes.sort(compareVotes)
-//     }
-
-//     case 'NEW_ANECDOTE': {
-//       console.log("action.data:", action.data)
-//       return [...state, action.payload]
-//     }
-    
-//   default: return state
-//   }
-// }
-
-// export const createAnecdote = (content) => {
-//   return {
-//     type: 'NEW_ANECDOTE',
-//     payload: {
-//       content,
-//       id: getId(),
-//       votes: 0,
-//     }
-//   }
-// }
-
-// export const vote = (id) => {
-//   return {
-//     type: 'VOTE',
-//     payload: { id }
-//   }
-// }
-
-// export default anecdoteReducer
