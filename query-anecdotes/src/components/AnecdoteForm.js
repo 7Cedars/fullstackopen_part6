@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from 'react-query'
 const AnecdoteForm = () => {
   
   const queryClient = useQueryClient()
+  
   const newAnecMutation = useMutation(createAnecdote, {
     onSuccess: () => {
       queryClient.invalidateQueries('anecdotes')
