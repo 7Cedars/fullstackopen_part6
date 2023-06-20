@@ -27,7 +27,8 @@ const anecdoteSlice = createSlice({
       state.push(action.payload)
     }, 
     setAnecdotes(state, action) {
-      return action.payload
+      const anecdotes = action.payload
+      return anecdotes.sort(compareVotes)
     }
   }
 })

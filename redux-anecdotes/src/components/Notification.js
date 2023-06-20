@@ -4,10 +4,8 @@ const Notification = () => {
   const notification = useSelector(state => {
     
       if (state.notification) { 
-        const notifications = state.notification
-        const selectedNotification = notifications.slice(-1)
-       // console.log("notification to RETURN: ", selectedNotification)
-        return selectedNotification[0].message
+        const currentNotification = state.notification
+        return currentNotification
       }
 
     })
