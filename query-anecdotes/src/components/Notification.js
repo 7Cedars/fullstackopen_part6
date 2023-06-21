@@ -1,3 +1,6 @@
+import  NotificationContext from '../NotificationContext'
+import { useContext } from 'react'
+
 const Notification = () => {
   const style = {
     border: 'solid',
@@ -5,14 +8,18 @@ const Notification = () => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
-  if (true) return null
 
+  const [notification, notificationDispatch] = useContext(NotificationContext)
+  
+  if (notification) 
+  
   return (
     <div style={style}>
-      
+      { notification } 
     </div>
   )
+
+  
 }
 
 export default Notification

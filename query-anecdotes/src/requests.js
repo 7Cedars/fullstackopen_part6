@@ -10,3 +10,4 @@ export const createAnecdote = newAnecdote =>
 
 export const updateAnecdote = updatedAnecdote =>
   axios.put(`${baseUrl}/${updatedAnecdote.id}`, updatedAnecdote).then(res => res.data)
+
